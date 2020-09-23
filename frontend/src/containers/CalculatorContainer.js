@@ -36,7 +36,7 @@ export default () => {
         <React.Fragment>
             {fileUploaded ?
             <STLViewer
-                model={`http://localhost:8000/media/${fileName}.stl`}
+                model={`http://${window.location.hostname}:8000/media/${fileName}.stl`}
                 height={400}
                 width={1000}
                 modelColor='#FFFFFF'
