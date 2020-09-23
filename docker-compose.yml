@@ -1,0 +1,28 @@
+version: '3'
+services:
+  db_fabrika:
+    restart: always
+    image: postgres:latest
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+  migrate:
+    build: .
+    command: python manage.py migrate
+    depends_on:
+      - db_fabrika
+  collectstatic:
+    build: .
+    command: python manage.py collectstatic
+    depends_on:
+      - db_fabrika
+  fabrika:
+    build: .
+    command: python manage.py runserver 0.0.0.0:${APP_PORT}
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    volumes:
+      - '.:/app'
+    depends_on:
+      - db_fabrika
