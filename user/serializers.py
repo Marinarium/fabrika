@@ -10,6 +10,7 @@ from dj_rest_auth.models import TokenModel
 from .models import *
 from utils.drf_errors.mixins import FriendlyErrorMessagesMixin
 
+
 class UserSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
 
     class Meta:

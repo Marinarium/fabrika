@@ -1,12 +1,7 @@
 import React, {Component} from 'react';
-import {
-    Button,
-    Col,
-    Form,
-    FormGroup, Input, Label,
-    Row
-} from "reactstrap";
+import {Button, Col, Form, FormGroup, Label, Row} from "reactstrap";
 import {ValidationInput, ValidateState, Rule, TypeOfRule} from "../../helpers/ValidationHelper";
+import Input from '../../controls/Input';
 
 
 class LogInContainer extends Component {
@@ -40,9 +35,15 @@ class LogInContainer extends Component {
                     "password": this.state.userPassword.value
                 })
             })
-                .then(response => {
-                    console.log(response);
-                });
+                .then(response => response.json())
+                .then(result => {
+                    if (result['auth_token']) {
+                        localStorage.setItem('token', result['auth_token']);
+                        window.location = '/';
+                    } else {
+                        console.log(result['message']);
+                    }
+                })
         }
     };
 
@@ -50,54 +51,33 @@ class LogInContainer extends Component {
         const {username, userPassword} = this.state;
 
         return (
-            <Row>
-                <Col md="6">
-                    <h2 className="pt-5 pb-3">Sign In</h2>
-                    <p>Account will allow you to track your order status online.</p>
-                    <p>
-                        Don’t have an account yet?{' '}
-                        <a href="/registration">Create an account</a>
-                    </p>
-                    <Form className="p-3">
-                        <FormGroup row>
-                            <Label for="inputUsername">Username</Label>
-                            <Input
-                                name="username"
-                                maxLength={100}
-                                value={username.value}
-                                onChange={this.handleChange}
-                                type="text"
-                                className={username.isValid ? '' : 'error'}
-                                validationMessageLength={username.validationMessage.length}
-                                validationMessageText={username.validationMessage[0]}
-                                invalid={!username.isValid}
-                            />
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="inputPassword">Password</Label>
-                            <Input
-                                name="userPassword"
-                                value={userPassword.value}
-                                onChange={this.handleChange}
-                                type="password"
-                                className={userPassword.isValid ? '' : 'error'}
-                                invalid={!userPassword.isValid}
-                                validationMessageLength={userPassword.validationMessage.length}
-                                validationMessageText={userPassword.validationMessage[0]}
-                            />
-                        </FormGroup>
-                    </Form>
-                    <Button
-                        outline
-                        color="secondary"
-                        className="mt-2"
-                        onClick={this.submit}
-                    >
-                        Sign In
-                    </Button>
-                </Col>
-                <Col md="6"/>
-            </Row>
+            <main className="main">
+                <form className="form" action="/">
+                    <h1 className="form__title">Sign in</h1>
+                    <div className="form__desc">
+                        <p className="form__p">Copy
+                            Account will allow you to track your order status online.</p>
+                        <p className="form__p">Don’t have an account yet? <a href="#" className="form__link">Create an
+                            account</a></p>
+                    </div>
+                    <div className="form__input-wrap">
+                        <label htmlFor="mail" className="form__label">Email</label>
+                        <input id="mail" type="email" className="form__input" required placeholder="Enter email"/>
+                    </div>
+                    <div className="form__input-wrap">
+                        <div className="form__label-wrap">
+                            <label htmlFor="password" className="form__label">Password</label>
+                            <a href="" className="form__link form__link_light">Forgot password?</a>
+                        </div>
+                        <div className="form__password-wrap">
+                            <input id="password" type="password" className="form__input" required
+                                   placeholder="Enter password"/>
+                            <button className="form__eye" type="button"></button>
+                        </div>
+                    </div>
+                    <button className="form__btn" type="submit">Sign in</button>
+                </form>
+            </main>
         )
     }
 }

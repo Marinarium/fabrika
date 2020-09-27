@@ -1,9 +1,8 @@
 from __future__ import unicode_literals
 
+from django.contrib.auth import authenticate
 from django.http import HttpResponse
-from django.views.generic import TemplateView
 from rest_framework.permissions import IsAuthenticated
-
 from rest_framework import generics
 import requests
 from rest_framework.response import Response
@@ -13,6 +12,28 @@ from rest_framework.authtoken.models import Token
 from .serializers import *
 import json
 import os
+
+
+class UserLoginView(generics.GenericAPIView):
+    def post(self, request):
+        # new_user = User.objects.create(username='root')
+        # new_user.set_password('123123123d')
+        # new_user.save()
+
+        body_unicode = request.body.decode('utf-8')
+        body_data = json.loads(body_unicode)
+        username = body_data['username']
+        password = body_data['password']
+
+        user = authenticate(username=username, password=password)
+        message = ''
+        auth_token = ''
+        if user:
+            auth_token = str(Token.objects.get_or_create(user=user)[0])
+            request.session['auth_token'] = auth_token
+        else:
+            message = 'Неверный логин или пароль'
+        return HttpResponse(json.dumps({'auth_token': auth_token, 'message': message}), content_type="application/json")
 
 
 def request_transform(request):

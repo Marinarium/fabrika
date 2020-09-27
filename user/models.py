@@ -9,6 +9,7 @@ from django.db.models.signals import post_save
 from timezone_field import TimeZoneField
 from django_resized import ResizedImageField
 
+
 class User(AbstractUser):
     CURRENCY = (
         ('usa', 'USD Dollars'),

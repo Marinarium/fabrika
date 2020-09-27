@@ -16,62 +16,39 @@ class UserRegistration extends Component {
 
     render() {
         return (
-            <Row>
-                <Col md="6">
-                    <h2 className="pt-5 pb-3">Sign Up</h2>
-                    <p>Account will allow you to track your order status online </p>
-                    <p>
-                        Already have an account? <a href="/login">Log in</a>
-                    </p>
-                    <Form className="p-3">
-                        <FormGroup row>
-                            <Label for="inputUsername">Username</Label>
-                            <Input
-                                type="text"
-                                name="username"
-                                id="inputUsername"
-                                placeholder=""
-                            />
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="inputEmail">Email</Label>
-                            <Input type="email" name="email" id="inputEmail" placeholder=""/>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="inputPassword">Password</Label>
-                            <Input
-                                type="password"
-                                name="password"
-                                id="inputPassword"
-                                placeholder=""
-                            />
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="inputPasswordRepeat">Password repeat</Label>
-                            <Input
-                                type="password"
-                                name="password"
-                                id="inputPasswordRepeat"
-                                placeholder=""
-                            />
-                        </FormGroup>
-                        <FormGroup row>
-                            <Col>
-                                <FormGroup check>
-                                    <Label check>
-                                        <Input type="checkbox" id="checkbox"/> I agree with the
-                                        terms of use
-                                    </Label>
-                                </FormGroup>
-                            </Col>
-                        </FormGroup>
-                    </Form>
-                    <Button outline disabled color="secondary" className="mt-2">
-                        Sign Up
-                    </Button>
-                </Col>
-                <Col md="6"/>
-            </Row>
+            <main className="main">
+                <form className="form" action="/">
+                    <h1 className="form__title">Sign up</h1>
+                    <div className="form__desc">
+                        <p className="form__p">Copy
+                            Account will allow you to track your order status online</p>
+                        <p className="form__p">Already have an account? <a href="#" className="form__link">Log in</a>
+                        </p>
+                    </div>
+                    <div className="form__input-wrap">
+                        <label htmlFor="mail" className="form__label">Email</label>
+                        <input id="mail" type="email" className="form__input" required placeholder="Enter email"/>
+                    </div>
+                    <div className="form__input-wrap">
+                        <div className="form__label-wrap">
+                            <label htmlFor="password" className="form__label">Password</label>
+                            <a href="" className="form__link form__link_light">Forgot password?</a>
+                        </div>
+                        <div className="form__password-wrap">
+                            <input id="password" type="password" className="form__input" required
+                                   placeholder="Enter password"/>
+                            <button className="form__eye" type="button"></button>
+                        </div>
+                    </div>
+                    <div className="form__input-wrap">
+                        <input type="checkbox" className="form__checkbox-input" id="terms" name="terms" value="terms"/>
+                        <label htmlFor="terms" className="form__label">I agree with the
+                            <a href="#" className="form__link">terms ofuse</a>
+                        </label>
+                    </div>
+                    <button className="form__btn" type="submit">Sign in</button>
+                </form>
+            </main>
         )
     }
 }
