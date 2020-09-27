@@ -3,16 +3,18 @@ import ContentContainer from './containers/ContentContainer'
 import {BrowserRouter} from 'react-router-dom'
 import NavigationContainer from "./containers/NavigationContainer";
 import {Container} from "reactstrap";
+import FooterContainer from "./containers/FooterContainer";
 
 
 function App() {
     return (
         <BrowserRouter>
-            <div className="wrapper">
-                <Container>
+            <div className="sign-in wrapper">
+                <div className="content">
                     <NavigationContainer/>
                     <ContentContainer/>
-                </Container>
+                    <FooterContainer/>
+                </div>
             </div>
         </BrowserRouter>
     )

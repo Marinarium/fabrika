@@ -17,6 +17,11 @@ services:
     command: python manage.py collectstatic
     depends_on:
       - db_fabrika
+  loadinitialdata:
+    build: .
+    command: python manage.py loaddata initial_data.json
+    depends_on:
+      - db_fabrika
   fabrika:
     build: .
     command: python manage.py runserver 0.0.0.0:${APP_PORT}
